@@ -1,6 +1,5 @@
 import React from 'react';
 import { SCREENS } from 'src/constants';
-import { colors } from 'src/theme';
 
 import { HomeNavigator } from './HomeNavigator';
 import { Stack } from './Stack';
@@ -13,7 +12,7 @@ export const MainStack: React.FC = () => {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-          navigationBarColor: colors.background,
+          // navigationBarColor: colors.background,
           orientation: 'landscape',
         }}
         // initialRouteName={SCREENS.Main}

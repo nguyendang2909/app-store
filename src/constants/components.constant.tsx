@@ -1,8 +1,6 @@
 import { FC } from 'react';
-import { CustomersScreen } from 'src/screens/customers/customers.screen';
-import { Management } from 'src/screens/management/management';
-import { OrdersScreen } from 'src/screens/orders/orders.screen';
-import { ProductsScreen } from 'src/screens/products/products.screen';
+import { AppScreen, Management } from 'src/screens/apps/app.screen';
+import { InstalledAppScreen } from 'src/screens/installed-apps/installed-app.screen';
 import { BottomNavigatorName, HomeTabParamList } from 'src/types';
 
 import { BOTTOM_NAVIGATOR_NAMES, PRODUCT_SORT_TYPES } from './constants';
@@ -17,8 +15,8 @@ export const DEFAULT_NAVIGATOR: {
   isShow: true;
 }[] = [
   {
-    id: 'MANAGEMENT',
-    name: 'MANAGEMENT',
+    id: 'APP',
+    name: 'APP',
     title: 'Quản lý',
     screen: Management,
     icon: NAVIGATION_ICONS.ORDER,
@@ -37,83 +35,19 @@ export const NAVIGATOR_DATA: Record<
     isShow: boolean;
   }
 > = {
-  ORDER: {
-    id: BOTTOM_NAVIGATOR_NAMES.ORDER,
-    name: BOTTOM_NAVIGATOR_NAMES.ORDER,
-    title: 'Đơn hàng',
-    screen: OrdersScreen,
-    icon: NAVIGATION_ICONS.ORDER,
+  APP: {
+    id: BOTTOM_NAVIGATOR_NAMES.APP,
+    name: BOTTOM_NAVIGATOR_NAMES.APP,
+    title: 'Apps',
+    screen: AppScreen,
+    icon: NAVIGATION_ICONS.PRODUCT,
     isShow: false,
   },
-  REPORT: {
-    id: BOTTOM_NAVIGATOR_NAMES.REPORT,
-    name: BOTTOM_NAVIGATOR_NAMES.REPORT,
-    title: 'Báo cáo',
-    screen: CustomersScreen,
-    icon: NAVIGATION_ICONS.ORDER,
-    isShow: false,
-  },
-  TABLE: {
-    id: BOTTOM_NAVIGATOR_NAMES.TABLE,
-    name: BOTTOM_NAVIGATOR_NAMES.TABLE,
-    title: 'Bàn',
-    screen: CustomersScreen,
-    icon: NAVIGATION_ICONS.ORDER,
-    isShow: false,
-  },
-  SELL: {
-    id: BOTTOM_NAVIGATOR_NAMES.SELL,
-    name: BOTTOM_NAVIGATOR_NAMES.SELL,
-    title: 'Bán hàng',
-    screen: CustomersScreen,
-    icon: NAVIGATION_ICONS.ORDER,
-    isShow: false,
-  },
-  DEBT_BOOK: {
-    id: BOTTOM_NAVIGATOR_NAMES.DEBT_BOOK,
-    name: BOTTOM_NAVIGATOR_NAMES.DEBT_BOOK,
-    title: 'Sổ nợ',
-    screen: CustomersScreen,
-    icon: NAVIGATION_ICONS.ORDER,
-    isShow: false,
-  },
-  RECEIPT_AND_EXPENSE: {
-    id: BOTTOM_NAVIGATOR_NAMES.RECEIPT_AND_EXPENSE,
-    name: BOTTOM_NAVIGATOR_NAMES.RECEIPT_AND_EXPENSE,
-    title: 'Thu chi',
-    screen: CustomersScreen,
-    icon: NAVIGATION_ICONS.ORDER,
-    isShow: false,
-  },
-  CUSTOMER: {
-    id: BOTTOM_NAVIGATOR_NAMES.CUSTOMER,
-    name: BOTTOM_NAVIGATOR_NAMES.CUSTOMER,
-    title: 'Khách hàng',
-    screen: CustomersScreen,
-    icon: NAVIGATION_ICONS.ORDER,
-    isShow: false,
-  },
-  WAREHOUSE: {
-    id: BOTTOM_NAVIGATOR_NAMES.WAREHOUSE,
-    name: BOTTOM_NAVIGATOR_NAMES.WAREHOUSE,
-    title: 'Kho hàng',
-    screen: CustomersScreen,
-    icon: NAVIGATION_ICONS.WARE_HOUSE,
-    isShow: false,
-  },
-  MESSAGE: {
-    id: BOTTOM_NAVIGATOR_NAMES.MESSAGE,
-    name: BOTTOM_NAVIGATOR_NAMES.MESSAGE,
-    title: 'Tin nhắn',
-    screen: CustomersScreen,
-    icon: NAVIGATION_ICONS.WARE_HOUSE,
-    isShow: false,
-  },
-  PRODUCT: {
-    id: BOTTOM_NAVIGATOR_NAMES.PRODUCT,
-    name: BOTTOM_NAVIGATOR_NAMES.PRODUCT,
-    title: 'Sản phẩm',
-    screen: ProductsScreen,
+  INSTALLED_APP: {
+    id: BOTTOM_NAVIGATOR_NAMES.INSTALLED_APP,
+    name: BOTTOM_NAVIGATOR_NAMES.INSTALLED_APP,
+    title: 'Đã cài',
+    screen: InstalledAppScreen,
     icon: NAVIGATION_ICONS.PRODUCT,
     isShow: false,
   },

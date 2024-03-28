@@ -64,17 +64,8 @@ export const DEFAULT_LANGUAGE = 'en';
 export const APP_NAME = 'iBán hàng';
 
 export const BOTTOM_NAVIGATOR_NAMES = {
-  ORDER: 'ORDER',
-  REPORT: 'REPORT',
-  TABLE: 'TABLE',
-  SELL: 'SELL',
-  DEBT_BOOK: 'DEBT_BOOK',
-  RECEIPT_AND_EXPENSE: 'RECEIPT_AND_EXPENSE',
-  // ONLINE_STORE: 'online_store',
-  CUSTOMER: 'CUSTOMER',
-  WAREHOUSE: 'WAREHOUSE',
-  MESSAGE: 'MESSAGE',
-  PRODUCT: 'PRODUCT',
+  APP: 'APP',
+  INSTALLED_APP: 'INSTALLED_APP',
 } as const;
 
 export const PRODUCT_SORT_TYPES = {

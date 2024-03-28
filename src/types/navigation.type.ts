@@ -6,18 +6,8 @@ import { AppStore } from './app-store.type';
 import { Entity } from './entities.type';
 
 export type HomeTabParamList = {
-  MANAGEMENT: undefined;
-  ORDER: undefined;
-  REPORT: undefined;
-  TABLE: undefined;
-  SELL: undefined;
-  DEBT_BOOK: undefined;
-  RECEIPT_AND_EXPENSE: undefined;
-  // ONLINE_STORE: undefined,
-  CUSTOMER: undefined;
-  WAREHOUSE: undefined;
-  MESSAGE: undefined;
-  PRODUCT: undefined;
+  APP: undefined;
+  INSTALLED_APP: undefined;
 };
 
 export type AppStackParamList = {

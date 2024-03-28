@@ -3,10 +3,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { FC } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { APP_CONFIG } from 'src/config/config.app';
-import { DEFAULT_NAVIGATOR, NAVIGATOR_DATA } from 'src/constants';
+import { NAVIGATOR_DATA } from 'src/constants';
 import { BOTTOM_NAVIGATOR_NAMES } from 'src/constants/constants';
 import { useMessages } from 'src/hooks';
-import { backgroundColor, borderTopColor } from 'src/styles';
+import { borderTopColor } from 'src/styles';
 import { colors } from 'src/theme';
 import { AppStackScreenProps, HomeTabParamList } from 'src/types';
 
@@ -19,14 +19,9 @@ export const HomeNavigator: FC<FCProps> = () => {
 
   const { bottom } = useSafeAreaInsets();
 
-  const screens = [
-    BOTTOM_NAVIGATOR_NAMES.PRODUCT,
-    BOTTOM_NAVIGATOR_NAMES.CUSTOMER,
-    BOTTOM_NAVIGATOR_NAMES.ORDER,
-  ];
+  const screens = [BOTTOM_NAVIGATOR_NAMES.APP, BOTTOM_NAVIGATOR_NAMES.INSTALLED_APP];
 
   const navigators = [
-    ...DEFAULT_NAVIGATOR,
     ...screens.map(e => {
       return { ...NAVIGATOR_DATA[e], isShow: true };
     }),
@@ -40,7 +35,7 @@ export const HomeNavigator: FC<FCProps> = () => {
           headerShown: false,
           tabBarHideOnKeyboard: true,
           tabBarStyle: [
-            backgroundColor(colors.background),
+            // backgroundColor(colors.background),
             borderTopColor(colors.transparent),
             { height: bottom + APP_CONFIG.SIZE.BOTTOM_BAR.HEIGHT },
           ],
@@ -63,7 +58,8 @@ export const HomeNavigator: FC<FCProps> = () => {
               component={e.screen}
               options={{
                 // headerShown: false,
-                // tabBarShowLabel: true,
+                tabBarLabelPosition: 'below-icon',
+                tabBarShowLabel: true,
                 tabBarLabel: e.title,
                 tabBarIcon: ({ focused }) => (
                   <Icon
@@ -77,107 +73,6 @@ export const HomeNavigator: FC<FCProps> = () => {
             ></Tab.Screen>
           );
         })}
-
-        {/* <Tab.Screen
-          name="DatingNearby"
-          component={DatingNearbyScreen}
-          options={{
-            tabBarShowLabel: false,
-            //   tabBarLabel: formatMessage('Nearby'),
-            tabBarIcon: ({ focused }) => (
-              <GradientIcon
-                {...(!focused
-                  ? {
-                      colors: [colors.palette.neutral500, colors.palette.neutral500],
-                    }
-                  : {})}
-                size={30}
-                name="location-on"
-                icon={MaterialIcons}
-              />
-            ),
-          }}
-        /> */}
-        {/* <Tab.Screen
-          name="DatingSwipe"
-          component={DatingSwipeScreen}
-          options={{
-            tabBarShowLabel: false,
-            //   tabBarLabel: formatMessage('Swipe'),
-            tabBarIcon: ({ focused }) => (
-              <GradientIcon
-                {...(!focused
-                  ? {
-                      colors: [colors.palette.neutral500, colors.palette.neutral500],
-                    }
-                  : {})}
-                size={30}
-                name="globe"
-                icon={FontAwesome}
-              />
-            ),
-          }}
-        /> */}
-        {/* <Tab.Screen
-          name="Star"
-          component={StarScreen}
-          options={{
-            tabBarShowLabel: false,
-            //   tabBarLabel: formatMessage('Nearby'),
-            tabBarIcon: ({ focused }) => (
-              <GradientIcon
-                {...(!focused
-                  ? {
-                      colors: [colors.palette.neutral500, colors.palette.neutral500],
-                    }
-                  : {})}
-                size={30}
-                name="star"
-                icon={AntDesign}
-              />
-            ),
-          }}
-        /> */}
-        {/* <Tab.Screen
-          name="Conversations"
-          component={ConversationsScreen}
-          options={{
-            // tabBarShowLabel: false,
-            tabBarLabel: formatMessage('Messages'),
-            tabBarIcon: ({ focused }) => (
-              <GradientIcon
-                {...(!focused
-                  ? {
-                      colors: [colors.palette.neutral500, colors.palette.neutral500],
-                    }
-                  : {})}
-                size={30}
-                name="chat"
-                icon={MaterialCommunityIcons}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={ProfileScreen}
-          options={{
-            // tabBarShowLabel: false,
-            tabBarLabel: formatMessage('Profile'),
-            tabBarIcon: ({ focused }) => (
-              <GradientIcon
-                {...(!focused
-                  ? {
-                      colors: [colors.palette.neutral500, colors.palette.neutral500],
-                    }
-                  : {})}
-                size={30}
-                name="account"
-                icon={MaterialCommunityIcons}
-              />
-            ),
-          }}
-        /> */}
       </Tab.Navigator>
     </>
   );

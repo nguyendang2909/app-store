@@ -29,18 +29,8 @@ export const SCREENS = {
 } as const;
 
 export const HOME_SCREENS = {
-  MANAGEMENT: 'MANAGEMENT',
-  ORDER: 'ORDER',
-  REPORT: 'REPORT',
-  TABLE: 'TABLE',
-  SELL: 'SELL',
-  PAY_BOOK: 'PAY_BOOK',
-  RECEIPT_AND_EXPENSE: 'RECEIPT_AND_EXPENSE',
-  // ONLINE_STORE: undefined,
-  CUSTOMER: 'CUSTOMER',
-  WAREHOUSE: 'WAREHOUSE',
-  MESSAGE: 'MESSAGE',
-  PRODUCT: 'PRODUCT',
+  APP: 'APP',
+  INSTALLED_APP: 'INSTALLED_APPS',
 } as const;
 
 export const AGES = {
