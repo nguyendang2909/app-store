@@ -37,3 +37,40 @@ export const AGES = {
   MIN: 18,
   MAX: 100,
 };
+
+export const APP_CATEGORY_LIST = [
+  {
+    id: 'giai_tri',
+    name: 'Giải trí',
+    apps: [
+      {
+        id: 'bong_ngo_tv',
+        name: 'Bong Ngo TV',
+        url: 'https://vdating-staging.s3.ap-southeast-1.amazonaws.com/apk/BongNgoTV_5.6.76_Apkpure.apk',
+        icon: require('../../assets/app-icons/bong-ngo-tv.webp'),
+      },
+      {
+        id: 'smarttube',
+        name: 'Smartube',
+        url: 'https://vdating-staging.s3.ap-southeast-1.amazonaws.com/apk/smarttube_stable.apk',
+        icon: require('../../assets/app-icons/smarttube.webp'),
+      },
+      {
+        id: 'smarttube_next',
+        name: 'SmartTube Next',
+        url: 'https://vdating-staging.s3.ap-southeast-1.amazonaws.com/apk/SmartTubeNext+Stable_20.36_Apkpure.apk',
+        icon: require('../../assets/app-icons/smarttube-next.webp'),
+      },
+    ],
+  },
+  {
+    id: 'am_nhac',
+    name: 'Âm nhạc',
+    apps: [],
+  },
+  {
+    id: 'the_thao',
+    name: 'Thể thao',
+    apps: [],
+  },
+];

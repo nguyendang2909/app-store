@@ -1,43 +1,47 @@
-import { Button, ButtonText, StatusBar, Text } from '@gluestack-ui/themed';
-import { useState } from 'react';
-import { NativeModules } from 'react-native';
-import RNFS from 'react-native-fs';
-import { Header } from 'src/components';
+import RNApkInstaller from '@dominicvonk/react-native-apk-installer';
+import { Divider, HStack, ScrollView, StatusBar, Text, View } from '@gluestack-ui/themed';
+import { Fragment, useEffect } from 'react';
+import { APP_CATEGORY_LIST } from 'src/constants';
+
+import { AppItem } from './views/app-item';
 
 export const AppScreen = () => {
-  const [percent, setPercent] = useState<number>(0);
-  const handlePress = async () => {
-    const filePath = RNFS.DocumentDirectoryPath + '/com.domain.example.apk';
-
-    const download = RNFS.downloadFile({
-      fromUrl:
-        'https://vdating-staging.s3.ap-southeast-1.amazonaws.com/apk/BongNgoTV_5.6.76_Apkpure.apk',
-      toFile: filePath,
-      progress: res => {
-        console.log((res.bytesWritten / res.contentLength).toFixed(2));
-      },
-      progressDivider: 1,
-    });
-    download.promise.then(result => {
-      console.log(1111);
-      NativeModules.InstallApk.install(filePath);
-    });
+  const checkInstallAppPermission = async () => {
+    const permission = await RNApkInstaller.haveUnknownAppSourcesPermission();
+    if (!permission) {
+      RNApkInstaller.showUnknownAppSourcesPermission();
+    }
   };
+
+  useEffect(() => {
+    checkInstallAppPermission();
+  }, []);
 
   return (
     <>
       <StatusBar barStyle="default" />
-      <Header
-        title="Sản phẩm"
-        // rightIcon="settings"
-        // onRightPress={() => {
-        //   navigate.navigate(SCREENS.DATING_NEARBY_FILTER);
-        // }}
-      />
-      <Text> {percent}</Text>
-      <Button onPress={handlePress}>
-        <ButtonText>Download</ButtonText>
-      </Button>
+
+      <ScrollView px={16}>
+        {APP_CATEGORY_LIST.map(category => {
+          return (
+            <Fragment key={category.id}>
+              <View pt={16}>
+                <Text bold fontSize={28} lineHeight={34}>
+                  {category.name}
+                </Text>
+              </View>
+              <View py={16}>
+                <HStack>
+                  {category.apps.map(app => {
+                    return <AppItem key={app.id} app={app} />;
+                  })}
+                </HStack>
+              </View>
+              <Divider />
+            </Fragment>
+          );
+        })}
+      </ScrollView>
     </>
   );
 };
