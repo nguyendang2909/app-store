@@ -4,10 +4,10 @@ import { useWindowDimensions } from 'react-native';
 import { useAppDispatch } from 'src/hooks';
 import { setSearchProducts } from 'src/store/cache';
 
-import { CategoryTab } from './category-tab/category-tab';
+import { InstalledApps } from './category-tab/category-tab';
 import { CategoryTabHeader } from './headers/CategoryTabHeader';
 import { ProductTabHeader } from './headers/ProductTabHeader';
-import { ProductTab } from './product-tab/product-tab';
+import { FeatureApps } from './product-tab/product-tab';
 import { TabBarProductScreen } from './product-tab-bar';
 
 const Tab = createMaterialTopTabNavigator();
@@ -28,8 +28,16 @@ export const ProductTabs = () => {
           return <TabBarProductScreen {...props} headers={[ProductTabHeader, CategoryTabHeader]} />;
         }}
       >
-        <Tab.Screen name="product" component={ProductTab} options={{ tabBarLabel: 'Sản phẩm' }} />
-        <Tab.Screen name="category" component={CategoryTab} options={{ tabBarLabel: 'Danh mục' }} />
+        <Tab.Screen
+          name="product"
+          component={FeatureApps}
+          // options={{ tabBarLabel: 'Sản phẩm' }}
+        />
+        <Tab.Screen
+          name="category"
+          component={InstalledApps}
+          // options={{ tabBarLabel: 'Danh mục' }}
+        />
       </Tab.Navigator>
     </>
   );
