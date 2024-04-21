@@ -1,7 +1,9 @@
 import RNApkInstaller from '@dominicvonk/react-native-apk-installer';
 import { Button, ButtonText, HStack, Image, Text, View } from '@gluestack-ui/themed';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { Linking } from 'react-native';
 import CircularProgress from 'react-native-circular-progress-indicator';
+import { getInstallerPackageName } from 'react-native-device-info';
 import RNFS from 'react-native-fs';
 import { v4 as uuidV4 } from 'uuid';
 
@@ -15,6 +17,32 @@ export const AppItem: FC<{
 }> = ({ app }) => {
   const [percent, setPercent] = useState<number>(0);
   const [isLoading, setLoading] = useState<boolean>(false);
+
+  // const appVersion = NativeModules.RCTDeviceInfo.getAppVersion('com.android.chrome');
+
+  async function isChromeInstalled() {
+    try {
+      const isChrome = await Linking.canOpenURL('googlechrome://');
+      return isChrome;
+    } catch (error) {
+      console.error('Error checking Chrome installation:', error);
+      return false;
+    }
+  }
+
+  useEffect(() => {
+    getInstallerPackageName().then(e => console.log(e));
+  }, []);
+
+  useEffect(() => {
+    isChromeInstalled().then(isChrome => {
+      if (isChrome) {
+        console.log('Chrome is installed');
+      } else {
+        console.log('Chrome is not installed');
+      }
+    });
+  }, []);
 
   const handlePress = async () => {
     setLoading(true);
