@@ -21,12 +21,12 @@ export const AppItem: FC<{
 
   const openApp = () => {
     console.log(111);
-    Linking.openURL(`${app.id}://`);
+    Linking.openURL('vnd.youtube://');
   };
 
   const check = useCallback(async () => {
     try {
-      await SharedGroupPreferences.isAppInstalledAndroid(app.id);
+      await SharedGroupPreferences.isAppInstalledAndroid('com.google.android.youtube');
       setCanOpen(true);
     } catch (e) {
       setCanOpen(false);
