@@ -1,10 +1,10 @@
 import RNApkInstaller from '@dominicvonk/react-native-apk-installer';
 import { Button, ButtonText, HStack, Image, Text, View } from '@gluestack-ui/themed';
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { Linking } from 'react-native';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import { getInstallerPackageName } from 'react-native-device-info';
 import RNFS from 'react-native-fs';
+import SharedGroupPreferences from 'react-native-shared-group-preferences';
 import { v4 as uuidV4 } from 'uuid';
 
 export const AppItem: FC<{
@@ -17,32 +17,35 @@ export const AppItem: FC<{
 }> = ({ app }) => {
   const [percent, setPercent] = useState<number>(0);
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [canOpen, setCanOpen] = useState<boolean>(false);
 
-  // const appVersion = NativeModules.RCTDeviceInfo.getAppVersion('com.android.chrome');
+  const openApp = () => {
+    console.log(111);
+    Linking.openURL(`${app.id}://`);
+  };
 
-  async function isChromeInstalled() {
+  const check = useCallback(async () => {
     try {
-      const isChrome = await Linking.canOpenURL('googlechrome://');
-      return isChrome;
-    } catch (error) {
-      console.error('Error checking Chrome installation:', error);
-      return false;
+      await SharedGroupPreferences.isAppInstalledAndroid(app.id);
+      setCanOpen(true);
+    } catch (e) {
+      setCanOpen(false);
     }
-  }
+  }, [app.id]);
 
   useEffect(() => {
-    getInstallerPackageName().then(e => console.log(e));
-  }, []);
+    check();
+  }, [check]);
 
-  useEffect(() => {
-    isChromeInstalled().then(isChrome => {
-      if (isChrome) {
-        console.log('Chrome is installed');
-      } else {
-        console.log('Chrome is not installed');
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   Linking.canOpenURL('com.studio.a')
+  //     .then(() => {
+  //       console.log(44444);
+  //     })
+  //     .catch(err => {
+  //       console.log(55555);
+  //     });
+  // }, []);
 
   const handlePress = async () => {
     setLoading(true);
@@ -67,29 +70,36 @@ export const AppItem: FC<{
   };
 
   return (
-    <HStack flex={1} gap={16}>
+    <HStack flex={1} gap={8}>
       <View>
         <Image height={72} width={72} source={app.icon} borderRadius={16} alt={app.name} />
       </View>
       <View>
         <View columnGap={8} rowGap={8}>
           <Text>{app.name}</Text>
-          {isLoading ? (
-            <View height={10} width={10}>
+          <HStack rowGap={8} columnGap={8} alignItems="center">
+            {canOpen ? (
+              <Button size="sm" variant="outline" onPress={openApp}>
+                <ButtonText>Mở</ButtonText>
+              </Button>
+            ) : (
+              <></>
+            )}
+            {isLoading ? (
               <CircularProgress
-                radius={16}
+                radius={14}
                 initialValue={0}
                 showProgressValue={false}
                 value={percent}
                 activeStrokeColor={'#2465FD'}
                 activeStrokeSecondaryColor={'#C25AFF'}
               />
-            </View>
-          ) : (
-            <Button size="sm" onPress={handlePress}>
-              <ButtonText>Update</ButtonText>
-            </Button>
-          )}
+            ) : (
+              <Button size="sm" onPress={handlePress}>
+                <ButtonText>Cài đặt</ButtonText>
+              </Button>
+            )}
+          </HStack>
         </View>
       </View>
     </HStack>

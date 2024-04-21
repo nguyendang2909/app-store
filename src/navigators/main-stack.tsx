@@ -1,7 +1,7 @@
 import React from 'react';
 import { SCREENS } from 'src/constants';
+import { AppScreen } from 'src/screens/apps/app.screen';
 
-import { HomeNavigator } from './HomeNavigator';
 import { Stack } from './Stack';
 
 export const MainStack: React.FC = () => {
@@ -20,7 +20,8 @@ export const MainStack: React.FC = () => {
       >
         <Stack.Group>
           {/* <Stack.Screen name={SCREENS.Main} component={MainScreen} /> */}
-          <Stack.Screen name={SCREENS.Home} component={HomeNavigator} />
+          {/* <Stack.Screen name={SCREENS.Home} component={HomeNavigator} /> */}
+          <Stack.Screen name={SCREENS.Home} component={AppScreen} />
           {/* <Stack.Screen name={SCREENS.LikedMe} component={LikedMeScreen} />
           <Stack.Screen name={SCREENS.CREATE_BASIC_PROFILE} component={CreateBasicProfileScreen} />
           <Stack.Screen name={SCREENS.CREATE_BASIC_PHOTOS} component={CreateBasicPhotosScreen} />

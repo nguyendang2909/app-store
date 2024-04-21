@@ -44,7 +44,7 @@ export const APP_CATEGORY_LIST = [
     name: 'Giải trí',
     apps: [
       {
-        id: 'bong_ngo_tv',
+        id: 'com.studio.bongngotv',
         name: 'Bong Ngo TV',
         url: 'https://vdating-staging.s3.ap-southeast-1.amazonaws.com/apk/BongNgoTV_5.6.76_Apkpure.apk',
         icon: require('../../assets/app-icons/bong-ngo-tv.webp'),
@@ -66,11 +66,25 @@ export const APP_CATEGORY_LIST = [
   {
     id: 'am_nhac',
     name: 'Âm nhạc',
-    apps: [],
+    apps: [
+      {
+        id: 'asas',
+        name: 'Nhac Cua Tui',
+        url: 'https://vdating-staging.s3.ap-southeast-1.amazonaws.com/apk/nhaccuatui.apk',
+        icon: require('../../assets/app-icons/nhaccuatui.webp'),
+      },
+    ],
   },
   {
     id: 'the_thao',
     name: 'Thể thao',
-    apps: [],
+    apps: [
+      {
+        id: 'tv.vebo.dev',
+        name: 'Vebo TV',
+        url: 'https://vdating-staging.s3.ap-southeast-1.amazonaws.com/apk/vebotv.apk',
+        icon: require('../../assets/app-icons/vebotv.webp'),
+      },
+    ],
   },
 ];
