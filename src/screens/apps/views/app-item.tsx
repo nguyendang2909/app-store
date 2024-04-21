@@ -26,7 +26,7 @@ export const AppItem: FC<{
 
   const check = useCallback(async () => {
     try {
-      await SharedGroupPreferences.isAppInstalledAndroid('com.google.android.youtube');
+      await SharedGroupPreferences.isAppInstalledAndroid(app.id);
       setCanOpen(true);
     } catch (e) {
       setCanOpen(false);
