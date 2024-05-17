@@ -1,12 +1,13 @@
 import RNApkInstaller from '@dominicvonk/react-native-apk-installer';
 import { Divider, HStack, ScrollView, StatusBar, Text, View } from '@gluestack-ui/themed';
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useFetchStoreQuery } from 'src/api/app-store.api';
 import { useAppSelector } from 'src/hooks';
 
 import { AppItem } from './views/app-item';
 
 export const AppScreen = () => {
+  const [focusedElement, setFocusedElement] = useState<string | null>(null);
   const checkInstallAppPermission = async () => {
     const permission = await RNApkInstaller.haveUnknownAppSourcesPermission();
     if (!permission) {
@@ -14,7 +15,7 @@ export const AppScreen = () => {
     }
   };
 
-  const fetchStore = useFetchStoreQuery();
+  useFetchStoreQuery();
 
   const appCategories = useAppSelector(s => s.app.store.categories);
 
@@ -38,7 +39,14 @@ export const AppScreen = () => {
               <View py={16}>
                 <HStack>
                   {category.apps.map(app => {
-                    return <AppItem key={app.id} app={app} />;
+                    return (
+                      <AppItem
+                        key={app.id}
+                        app={app}
+                        isFocused={focusedElement === app.id}
+                        onFocus={setFocusedElement}
+                      />
+                    );
                   })}
                 </HStack>
               </View>

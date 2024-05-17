@@ -10,7 +10,9 @@ import { v4 as uuidV4 } from 'uuid';
 
 export const AppItem: FC<{
   app: ApiResponse.App;
-}> = ({ app }) => {
+  isFocused: boolean;
+  onFocus: (id: string) => void;
+}> = ({ app, isFocused, onFocus }) => {
   const [percent, setPercent] = useState<number>(0);
   const [isLoading, setLoading] = useState<boolean>(false);
   // const [isInstalled, setInstalled] = useState<boolean | null>(null);
@@ -94,7 +96,15 @@ export const AppItem: FC<{
                 activeStrokeSecondaryColor={'#C25AFF'}
               />
             ) : (
-              <Button size="sm" onPress={handlePress}>
+              <Button
+                size="sm"
+                onPress={handlePress}
+                borderColor={isFocused ? '$textDark900' : undefined}
+                borderWidth={isFocused ? 2 : undefined}
+                onFocus={() => {
+                  onFocus(app.id);
+                }}
+              >
                 <ButtonText>Cài đặt</ButtonText>
               </Button>
             )}
