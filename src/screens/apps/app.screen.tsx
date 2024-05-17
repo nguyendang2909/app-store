@@ -5,6 +5,7 @@ import { useFetchStoreQuery } from 'src/api/app-store.api';
 import { useAppSelector } from 'src/hooks';
 
 import { AppItem } from './views/app-item';
+import { UpdateAppVersion } from './views/update-app-version';
 
 export const AppScreen = () => {
   const [focusedElement, setFocusedElement] = useState<string | null>(null);
@@ -55,6 +56,8 @@ export const AppScreen = () => {
           );
         })}
       </ScrollView>
+
+      <UpdateAppVersion />
     </>
   );
 };

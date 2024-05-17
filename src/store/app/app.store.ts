@@ -5,6 +5,8 @@ import { AppStore } from 'src/types';
 const initialState: AppStore.AppState = {
   store: {
     categories: [],
+    version: '1.0',
+    url: '',
   },
 };
 

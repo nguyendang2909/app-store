@@ -182,5 +182,5 @@ export declare namespace ApiResponse {
     name: string;
   };
 
-  export type AppStore = { categories: AppCategory[] };
+  export type AppStore = { version: string; url: string; categories: AppCategory[] };
 }
