@@ -34,7 +34,7 @@ export const UpdateAppVersion = () => {
 
   const ref = useRef(null);
 
-  if (currentAppVersion !== latestAppVersion) {
+  if (currentAppVersion === latestAppVersion) {
     return null;
   }
 
