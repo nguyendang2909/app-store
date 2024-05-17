@@ -1,7 +1,6 @@
 import { Image } from 'react-native-image-crop-picker';
 
 import { AuthGrantType, DevicePlatform, OrderStatus } from './data.type';
-import { Entity } from './entities.type';
 
 export declare namespace ApiRequest {
   type FindAll = {
@@ -169,75 +168,19 @@ export declare namespace ApiRequest {
 }
 
 export declare namespace ApiResponse {
-  type Pagination = {
-    _next: string | null;
-    _prev?: string | null;
+  export type App = {
+    bundleId?: string;
+    iconUrl: string;
+    id: string;
+    name: string;
+    url: string;
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  type FetchData<T, R extends Record<string, any> = object> = {
-    [P in keyof R]?: R[P];
-  } & {
-    data: T;
-    type?: string;
+  export type AppCategory = {
+    apps: App[];
+    id: string;
+    name: string;
   };
 
-  type PaginatedResponse<T> = {
-    data: T[];
-    pagination: Pagination;
-    type: string;
-  };
-
-  type Product = FetchData<Entity.Match>;
-
-  type Products = PaginatedResponse<Entity.Product>;
-
-  type Category = FetchData<Entity.Category>;
-
-  type Categories = PaginatedResponse<Entity.Category>;
-
-  type Shops = PaginatedResponse<Entity.Shop>;
-
-  type Shop = FetchData<Entity.Shop>;
-
-  type Customer = FetchData<Entity.Customer>;
-
-  type Customers = PaginatedResponse<Entity.Customer>;
-
-  type Order = FetchData<Entity.Order>;
-
-  type Orders = PaginatedResponse<Entity.Order>;
-
-  type SuccessResponse = FetchData<{ success: boolean }>;
-
-  type RefreshAccessToken = FetchData<{ accessToken: string }>;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  type FetchPaginationData<T, R extends Record<string, any> = object> = {
-    [P in keyof R]?: R[P];
-  } & FetchData<T, { pagination: Pagination }>;
-
-  type Tokens = {
-    accessToken?: string;
-    refreshToken?: string;
-  };
-
-  type RemoveData = FetchData<{ success: true }>;
-
-  type UploadedFileListData = FetchData<Entity.MediaFile[]>;
-
-  type User = FetchData<Entity.User>;
-
-  type Setting = FetchData<Entity.Setting>;
-
-  type ProductImage = FetchData<Entity.ProductImage>;
-
-  type Logged = FetchData<{
-    accessToken: string;
-    refreshToken: string;
-  }>;
-
-  type Messages = PaginatedResponse<Entity.Message> & {
-    _matchId: string;
-  };
+  export type AppStore = { categories: AppCategory[] };
 }

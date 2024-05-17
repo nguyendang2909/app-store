@@ -16,13 +16,8 @@ import { thunk } from 'redux-thunk';
 
 import { api } from '../api';
 import { appReducer } from './app/app.store';
-import { cacheReducer } from './cache';
-import { categoryReducer } from './category';
-import { customerReducer } from './customer';
-import { productReducer } from './product';
 import { appSaga } from './saga';
 // import theme from './theme';
-import { userReducer } from './user.store';
 
 const reduxSagaMonitorOptions = {};
 
@@ -31,20 +26,14 @@ const sagaMiddleware = createSagaMiddleware(reduxSagaMonitorOptions);
 const reducers = combineReducers({
   // theme,
   [api.reducerPath]: api.reducer,
-  user: userReducer,
   app: appReducer,
-  product: productReducer,
-  category: categoryReducer,
-  customer: customerReducer,
-  cache: cacheReducer,
-  // message: messageReducer,
 });
 
 const persistedReducer = persistReducer(
   {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: ['theme', 'app', 'message', 'product', 'category', 'customer'],
+    whitelist: ['theme', 'app'],
   },
   reducers,
 );

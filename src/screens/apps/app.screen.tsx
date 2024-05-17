@@ -1,7 +1,8 @@
 import RNApkInstaller from '@dominicvonk/react-native-apk-installer';
 import { Divider, HStack, ScrollView, StatusBar, Text, View } from '@gluestack-ui/themed';
 import { Fragment, useEffect } from 'react';
-import { APP_CATEGORY_LIST } from 'src/constants';
+import { useFetchStoreQuery } from 'src/api/app-store.api';
+import { useAppSelector } from 'src/hooks';
 
 import { AppItem } from './views/app-item';
 
@@ -13,6 +14,10 @@ export const AppScreen = () => {
     }
   };
 
+  const fetchStore = useFetchStoreQuery();
+
+  const appCategories = useAppSelector(s => s.app.store.categories);
+
   useEffect(() => {
     checkInstallAppPermission();
   }, []);
@@ -22,7 +27,7 @@ export const AppScreen = () => {
       <StatusBar barStyle="default" />
 
       <ScrollView px={16}>
-        {APP_CATEGORY_LIST.map(category => {
+        {appCategories.map(category => {
           return (
             <Fragment key={category.id}>
               <View pt={16}>

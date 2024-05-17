@@ -1,11 +1,11 @@
 import { Action } from '@reduxjs/toolkit';
-import { AuthorizationResult } from 'react-native-geolocation-service';
 import { IMessage } from 'react-native-gifted-chat';
 import { ThunkAction } from 'redux-thunk';
 import { store } from 'src/store/store';
 
 import { ProductSortType } from './common.type';
 import { Entity } from './entities.type';
+import { ApiResponse } from './fe.type';
 
 export declare namespace AppStore {
   type RootState = ReturnType<typeof store.getState>;
@@ -15,17 +15,7 @@ export declare namespace AppStore {
   type Setting = Partial<Entity.Setting>;
 
   type AppState = {
-    accessToken?: string;
-    refreshToken?: string;
-    isLogged?: boolean;
-    user: Partial<Entity.User>;
-    osPermissions?: {
-      locationService?: AuthorizationResult;
-    };
-    socket: {
-      connectedAt?: string;
-    };
-    settings: Setting;
+    store: ApiResponse.AppStore;
   };
 
   type Cache = {

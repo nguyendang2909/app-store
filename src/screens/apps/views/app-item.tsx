@@ -1,41 +1,37 @@
 import RNApkInstaller from '@dominicvonk/react-native-apk-installer';
 import { Button, ButtonText, HStack, Image, Text, View } from '@gluestack-ui/themed';
-import { FC, useCallback, useEffect, useState } from 'react';
-import { Linking } from 'react-native';
+import { FC, useState } from 'react';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import RNFS from 'react-native-fs';
-import SharedGroupPreferences from 'react-native-shared-group-preferences';
+import Toast from 'react-native-toast-message';
+import Config from 'src/config';
+import { ApiResponse } from 'src/types';
 import { v4 as uuidV4 } from 'uuid';
 
 export const AppItem: FC<{
-  app: {
-    id: string;
-    name: string;
-    url: string;
-    icon: any;
-  };
+  app: ApiResponse.App;
 }> = ({ app }) => {
   const [percent, setPercent] = useState<number>(0);
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [canOpen, setCanOpen] = useState<boolean>(false);
+  // const [isInstalled, setInstalled] = useState<boolean | null>(null);
 
-  const openApp = () => {
-    console.log(111);
-    Linking.openURL('vnd.youtube://');
-  };
+  // const openApp = () => {
+  //   console.log(111);
+  //   Linking.openURL('vnd.youtube://');
+  // };
 
-  const check = useCallback(async () => {
-    try {
-      await SharedGroupPreferences.isAppInstalledAndroid(app.id);
-      setCanOpen(true);
-    } catch (e) {
-      setCanOpen(false);
-    }
-  }, [app.id]);
+  // const check = useCallback(async () => {
+  //   try {
+  //     await SharedGroupPreferences.isAppInstalledAndroid(app.id);
+  //     setInstalled(true);
+  //   } catch (e) {
+  //     setInstalled(false);
+  //   }
+  // }, [app.id]);
 
-  useEffect(() => {
-    check();
-  }, [check]);
+  // useEffect(() => {
+  //   check();
+  // }, [check]);
 
   // useEffect(() => {
   //   Linking.canOpenURL('com.studio.a')
@@ -51,7 +47,7 @@ export const AppItem: FC<{
     setLoading(true);
     const filePath = RNFS.DocumentDirectoryPath + '/' + uuidV4() + '.apk';
     const download = RNFS.downloadFile({
-      fromUrl: app.url,
+      fromUrl: Config.STORAGE_BASE_URL + '/' + app.url,
       toFile: filePath,
       progress: res => {
         const currentPercent = +(res.bytesWritten / res.contentLength).toFixed(2) * 100;
@@ -61,6 +57,10 @@ export const AppItem: FC<{
     });
     download.promise
       .then(result => {
+        if (result.statusCode >= 400) {
+          Toast.show({ text1: 'Lỗi khi tải, vui lòng thử lại' });
+          return;
+        }
         RNApkInstaller.install(filePath);
       })
       .finally(() => {
@@ -72,19 +72,18 @@ export const AppItem: FC<{
   return (
     <HStack flex={1} gap={8}>
       <View>
-        <Image height={72} width={72} source={app.icon} borderRadius={16} alt={app.name} />
+        <Image
+          height={72}
+          width={72}
+          source={`${Config.STORAGE_BASE_URL}/${app.iconUrl}`}
+          borderRadius={16}
+          alt={app.name}
+        />
       </View>
       <View>
         <View columnGap={8} rowGap={8}>
           <Text>{app.name}</Text>
           <HStack rowGap={8} columnGap={8} alignItems="center">
-            {canOpen ? (
-              <Button size="sm" variant="outline" onPress={openApp}>
-                <ButtonText>Mở</ButtonText>
-              </Button>
-            ) : (
-              <></>
-            )}
             {isLoading ? (
               <CircularProgress
                 radius={14}
